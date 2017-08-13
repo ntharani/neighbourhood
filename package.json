@@ -17,5 +17,10 @@
     "babel-preset-stage-3": "^6.24.1",
     "webpack": "^3.5.4",
     "webpack-dev-server": "^2.7.1"
+  },
+  "dependencies": {
+    "path": "^0.12.7",
+    "promise-polyfill": "^6.0.2",
+    "whatwg-fetch": "^2.0.3"
   }
 }
