@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Neighbourhood Map</title>
+<style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+</style>    
+</head>
+<body>
+    <div class="control">
+        <h1>Neighbourhood Map</h1>
+        <label for="select">Venue</label>
+        <input type="text" name="vselect">
+        <ul>
+            <li>F1</li>
+            <li>F2</li>
+            <li>F3</li>
+            <li>F4</li>
+            <li>F5</li>
+        </ul>
+    </div>
+    <div id="map"></div>
+    <script src="app.js"></script>
+    <script>
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 49.2827, lng: -123.1207},
+          zoom: 15
+        });
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWAtCG4fzvlkJQpUGxeT-JndYmZCaKsvU&callback=initMap"
+    async defer></script>    
+</body>
+</html>
