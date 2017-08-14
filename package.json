@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@google/maps": "^0.4.3",
+    "jquery": "^3.2.1",
     "path": "^0.12.7",
     "promise-polyfill": "^6.0.2",
     "whatwg-fetch": "^2.0.3"

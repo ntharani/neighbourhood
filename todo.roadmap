@@ -1,7 +1,8 @@
-1. HTML Basic Page
-2. Google Maps API Credentials
-3. CSS Full Screen / Full Div Canvas
+1. HTML Basic Page DONE
+2. Google Maps API Credentials DONE
+3. CSS Full Screen / Full Div Canvas DONE
 4. Knockout JS Logic - Filter View, Select
 5. Framework7.io
-6. 3rd Party - Foursquare API, Venues
+6. 3rd Party - Foursquare API, Venues -->  based on LatLong, extract those DONE 
+7. submit Four Square results to Google Maps to be plotted.
 
