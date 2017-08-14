@@ -17,19 +17,16 @@
         margin: 0;
         padding: 0;
       }
-</style>    
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js" integrity="sha256-owX7sroiO/O1a7h3a4X29A1g3QgqdNvijRQ7V5TH45M=" crossorigin="anonymous"></script>    
 </head>
 <body>
     <div class="control">
         <h1>Neighbourhood Map</h1>
         <label for="select">Venue</label>
         <input type="text" name="vselect">
-        <ul>
-            <li>F1</li>
-            <li>F2</li>
-            <li>F3</li>
-            <li>F4</li>
-            <li>F5</li>
+        <ul data-bind="foreach: seats">
+            <li data-bind="text: name">F1</li>
         </ul>
     </div>
     <div id="map"></div>
