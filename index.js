@@ -1,5 +1,5 @@
 import * as viewmodel from "./viewmodel.js";
-
+window.$ = window.jQuery = require("jquery");
 
 // viewmodel.getfsdata(function(nnn){
 //     console.log('nnn', nnn.length);

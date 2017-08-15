@@ -59,16 +59,11 @@ function PlaceListViewModel() {
         
     self.place = ko.observableArray([]);
 
-    let x = getfsdata(function(result){
+    getfsdata(function(result){
       console.log("result is, ",result);
       self.place(result);
     });
-
-    console.log("x is, :", x); // fails
-
-    self.place(x); // fails
-
-    console.log("self.place is,", self.place());    
+    
 }
 
 ko.applyBindings(new PlaceListViewModel());
@@ -89,7 +84,7 @@ window.initMap = function() {
     console.log(map);
 }
 
-// This is only within functional scope
+// This is only within functional scope. It is acceptable if WebPack isn't used.
 // function initMap() {
 //     map = new google.maps.Map(document.getElementById('map'), {
 //         center: {lat: 49.2827, lng: -123.1207},

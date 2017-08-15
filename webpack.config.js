@@ -1,7 +1,8 @@
 const webpack = require('webpack');
 new webpack.ProvidePlugin({
   $: 'jquery',
-  jQuery: 'jquery'
+  jQuery: 'jquery',
+  'window.jQuery': 'jquery'
 });
 
 module.exports = {
@@ -11,10 +12,31 @@ module.exports = {
     filename: 'bundle.js'
   },
   module: {
-    loaders: [{ 
-      test: /\.js$/, 
-      exclude: /node_modules/, 
-      loader: "babel-loader" 
-    }]
+    rules: [
+        {
+          test: /\.js$/, 
+          exclude: /node_modules/, 
+          use: [
+            {
+              loader: "babel-loader" 
+            }
+          ]
+        },
+        {
+          test: require.resolve('jquery'),
+          use: [
+            {
+              loader: 'expose-loader',
+              options: '$'
+            },
+            { 
+              loader: 'expose-loader', 
+              options: 'jQuery' 
+            }
+          ]
+        }
+    ]
   }
 };
+
+

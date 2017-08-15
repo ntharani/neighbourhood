@@ -103,6 +103,17 @@ var viewmodel = _interopRequireWildcard(_viewmodel);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
+window.$ = window.JQuery = JQuery;
+
+// viewmodel.getfsdata(function(nnn){
+//     console.log('nnn', nnn.length);
+//     render();
+// }); // Fetches the data
+// console.log("Le response mon ami, ", viewmodel.nnn.length);
+// console.log("Le response mon ami 2, ", viewmodel.nnn[0]);
+// function render(){
+// // Overall viewmodel for this screen, along with initial state
+
 /***/ }),
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -172,16 +183,10 @@ function PlaceListViewModel() {
 
   self.place = ko.observableArray([]);
 
-  var x = getfsdata(function (result) {
+  getfsdata(function (result) {
     console.log("result is, ", result);
     self.place(result);
   });
-
-  console.log("x is, :", x); // fails
-
-  self.place(x); // fails
-
-  console.log("self.place is,", self.place());
 }
 
 ko.applyBindings(new PlaceListViewModel());
@@ -193,42 +198,23 @@ var map = void 0;
 // initMap: function(){}
 // This has to do with scopes and hoisting
 
-// This is preferred where WebPack is involved
-// window.initMap = function() {
+// This is global where WebPack is involved
+window.initMap = function () {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: { lat: 49.2827, lng: -123.1207 },
+    zoom: 15
+  });
+  console.log(map);
+};
+
+// This is only within functional scope. It is acceptable if WebPack isn't used.
+// function initMap() {
 //     map = new google.maps.Map(document.getElementById('map'), {
 //         center: {lat: 49.2827, lng: -123.1207},
 //         zoom: 15
 //     });
 //     console.log(map);
 // }
-
-// This works, but not ideal when using WebPack
-function initMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: { lat: 49.2827, lng: -123.1207 },
-    zoom: 15
-  });
-  console.log(map);
-}
-
-//Q2: module.exports syntax - can those functions be used locally?
-/*
-eg:
-
-module.exports = {
-
-  funcName: function(){
-
-  },
-}
-vs. 
-
-function funcName(){
-
-}
-
-Sorry if I'm not clear on this. 
-*/
 
 /***/ }),
 /* 3 */
