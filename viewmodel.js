@@ -31,7 +31,6 @@ function parseJSON(response) {
 }
 
 function getfsdata(callback) {
-  console.log("I'm a transactin here..")
   fetch(ans)
     .then(checkStatus)
     .then(parseJSON)
@@ -55,7 +54,7 @@ function getfsdata(callback) {
     })
 }
 
-function PlaceObjectViewModel() {
+function PlaceListViewModel() {
     let self = this;
         
     self.place = ko.observableArray([]);
@@ -72,4 +71,29 @@ function PlaceObjectViewModel() {
     console.log("self.place is,", self.place());    
 }
 
-ko.applyBindings(new PlaceObjectViewModel());
+ko.applyBindings(new PlaceListViewModel());
+
+let map;
+
+// Q1: How can I access this without window?
+// initMap = function() vs. function initMap()
+// initMap: function(){}
+// This has to do with scopes and hoisting
+
+// This is global where WebPack is involved
+window.initMap = function() {
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 49.2827, lng: -123.1207},
+        zoom: 15
+    });
+    console.log(map);
+}
+
+// This is only within functional scope
+// function initMap() {
+//     map = new google.maps.Map(document.getElementById('map'), {
+//         center: {lat: 49.2827, lng: -123.1207},
+//         zoom: 15
+//     });
+//     console.log(map);
+// }

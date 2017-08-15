@@ -97,9 +97,22 @@ module.exports = g;
 "use strict";
 
 
-__webpack_require__(2);
+var _viewmodel = __webpack_require__(2);
 
-var _promisePolyfill = __webpack_require__(3);
+var viewmodel = _interopRequireWildcard(_viewmodel);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(3);
+
+var _promisePolyfill = __webpack_require__(4);
 
 var _promisePolyfill2 = _interopRequireDefault(_promisePolyfill);
 
@@ -112,6 +125,13 @@ if (!window.Promise) {
 
 var FOURSQ_CLIENT_ID = "W40TGAOG1505I3W4FJGKJIOCXWU22EG33OVA0M3LKI3G45HO";
 var FOURSQ_CLIENT_SECRET = "4LHO1EKA2ENAWWAX2E31BWUQG2I5GCSJKOSFJJCT4Y2XGZBL";
+
+// let googleMapsClient = require('@google/maps').createClient({
+//   key: 'AIzaSyDWAtCG4fzvlkJQpUGxeT-JndYmZCaKsvU'
+// })
+
+var getVenues = "https://api.foursquare.com/v2/venues/explore?v=20131016&ll=49.2827%2C-123.1207&section=food&novelty=new&client_id=";
+var ans = getVenues + FOURSQ_CLIENT_ID + "&client_secret=" + FOURSQ_CLIENT_SECRET;
 
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
@@ -127,19 +147,91 @@ function parseJSON(response) {
   return response.json();
 }
 
-function getfsdata() {
-  console.log("I'm a transactin here..");
-  fetch('https://api.foursquare.com/v2/venues/explore?v=20131016&ll=49.2827%2C-123.1207&section=food&novelty=new&client_id=' + FOURSQ_CLIENT_ID + '&client_secret=' + FOURSQ_CLIENT_SECRET + "'").then(checkStatus).then(parseJSON).then(function (data) {
+function getfsdata(callback) {
+  fetch(ans).then(checkStatus).then(parseJSON).then(function (data) {
     console.log('request succeeded with JSON response', data);
+    var choices = data.response.groups[0].items;
+    var ans2 = choices.map(function (obj) {
+      var resp = {
+        name: obj.venue.name,
+        lat: obj.venue.location.lat,
+        lng: obj.venue.location.lng,
+        checkins: obj.venue.stats.checkinsCount
+        // nnn.push(resp);
+      };return resp;
+    });
+    console.log("choices is,", ans2);
+    callback(ans2);
   }).catch(function (error) {
     console.log('request failed', error);
   });
 }
 
-getfsdata();
+function PlaceListViewModel() {
+  var self = this;
+
+  self.place = ko.observableArray([]);
+
+  var x = getfsdata(function (result) {
+    console.log("result is, ", result);
+    self.place(result);
+  });
+
+  console.log("x is, :", x); // fails
+
+  self.place(x); // fails
+
+  console.log("self.place is,", self.place());
+}
+
+ko.applyBindings(new PlaceListViewModel());
+
+var map = void 0;
+
+// Q1: How can I access this without window?
+// initMap = function() vs. function initMap()
+// initMap: function(){}
+// This has to do with scopes and hoisting
+
+// This is preferred where WebPack is involved
+// window.initMap = function() {
+//     map = new google.maps.Map(document.getElementById('map'), {
+//         center: {lat: 49.2827, lng: -123.1207},
+//         zoom: 15
+//     });
+//     console.log(map);
+// }
+
+// This works, but not ideal when using WebPack
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: { lat: 49.2827, lng: -123.1207 },
+    zoom: 15
+  });
+  console.log(map);
+}
+
+//Q2: module.exports syntax - can those functions be used locally?
+/*
+eg:
+
+module.exports = {
+
+  funcName: function(){
+
+  },
+}
+vs. 
+
+function funcName(){
+
+}
+
+Sorry if I'm not clear on this. 
+*/
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports) {
 
 (function(self) {
@@ -606,7 +698,7 @@ getfsdata();
 
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(setImmediate) {(function (root) {
@@ -843,10 +935,10 @@ getfsdata();
 
 })(this);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5).setImmediate))
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var apply = Function.prototype.apply;
@@ -899,14 +991,14 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(5);
-var global = __webpack_require__(7);
+__webpack_require__(6);
+var global = __webpack_require__(8);
 exports.setImmediate = global.setImmediate;
 exports.clearImmediate = global.clearImmediate;
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -1096,10 +1188,10 @@ exports.clearImmediate = global.clearImmediate;
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(6)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(7)))
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -1289,7 +1381,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var win;
