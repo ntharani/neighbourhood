@@ -44,7 +44,6 @@ function getfsdata(callback) {
               lng: obj.venue.location.lng,
               checkins: obj.venue.stats.checkinsCount
           }
-          // nnn.push(resp);
           return resp;
       })
       console.log("choices is,", ans2);
@@ -54,10 +53,25 @@ function getfsdata(callback) {
     })
 }
 
+function PlaceModel(){
+
+}
+
+
+/*
+Uses Knockout.js to pull in a list of venues from Foursquare
+Assigns the result to self.place observable array.
+Then sets up individual PlaceModel which takes the place and embeds it
+within Google Maps Marker
+*/
+
 function PlaceListViewModel() {
     let self = this;
         
     self.place = ko.observableArray([]);
+
+    // Use Filter Here - Knockout computed observable
+    // KeyUp binding equivalent is via Knockout
 
     getfsdata(function(result){
       console.log("result is, ",result);
@@ -68,11 +82,12 @@ function PlaceListViewModel() {
 
 ko.applyBindings(new PlaceListViewModel());
 
+var vm = new PlaceListViewModel();
+ko.applyBindings(vm);
+
 let map;
 
-// Q1: How can I access this without window?
 // initMap = function() vs. function initMap()
-// initMap: function(){}
 // This has to do with scopes and hoisting
 
 // This is global where WebPack is involved
