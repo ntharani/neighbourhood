@@ -26,7 +26,7 @@
         <label for="select">Venue</label>
         <input type="text" name="vselect">
         <ul data-bind="foreach: placeList">
-            <li data-bind="text: name">F1</li>
+            <li data-bind="text: name, click: $.parent.sayBye">F1</li>
         </ul>
     </div>
     <div id="map"></div>

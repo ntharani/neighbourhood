@@ -122,6 +122,10 @@ class PlaceViewModel {
     this.filter = ko.observable('');
     this.isVisible = ko.observable(true);
 
+    this.sayBye = () => {
+        console.log("Howdy, I'm the parent");
+    }
+
     // Use Filter Here - Knockout computed observable
     // KeyUp binding equivalent is via Knockout
 
@@ -139,6 +143,7 @@ class PlaceViewModel {
   hello(){
     console.log("Hola!");
   }
+
 }
 
 // ko.applyBindings(new PlaceListViewModel());
