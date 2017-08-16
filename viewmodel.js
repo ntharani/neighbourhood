@@ -75,25 +75,33 @@ class PlaceModel{
     // Create the info window for this  object
     this.infoWindow = new google.maps.InfoWindow();
 
+    this.mapMarker.addListener('click', () => {
+      vm.hideWindows();
+      this.mapMarker.setAnimation(google.maps.Animation.BOUNCE);
+      setTimeout(() => { this.mapMarker.setAnimation(null); }, 1500);
 
-    this.showInfoWindow = () => {
-        // Build the basic info window content, if hasn't been done
-        if (!this.infoWindow.getContent()) {
-            // Initialize basic info window content and display it
-            this.infoWindow.setContent('Loading content...');
-            let content = '<h3>' + this.name + '</h3>';
-            content += '<p>Check-ins: ' + this.checkins + '</p>';
-            this.infoWindow.setContent(content);
-        }
-
-        // Show info window
-        this.infoWindow.open(map, this.mapMarker);
-    };
-
-    this.showInfoWindow();
+      this.infoWindow.open(map, this.mapMarker);
+    })
 
 
-    this.mapMarker.setAnimation(google.maps.Animation.BOUNCE);
+    // this.showInfoWindow = () => {
+    //     // Build the basic info window content, if hasn't been done
+    //     if (!this.infoWindow.getContent()) {
+    //         // Initialize basic info window content and display it
+    //         this.infoWindow.setContent('Loading content...');
+    //         let content = '<h3>' + this.name + '</h3>';
+    //         content += '<p>Check-ins: ' + this.checkins + '</p>';
+    //         this.infoWindow.setContent(content);
+    //     }
+
+    //     // Show info window
+    //     this.infoWindow.open(map, this.mapMarker);
+    // };
+
+    // this.showInfoWindow();
+
+
+    // this.mapMarker.setAnimation(google.maps.Animation.BOUNCE);
 
     // this.infoWindow.open(map, this.mapMarker);
 
@@ -108,6 +116,33 @@ class PlaceModel{
     */
     // self.infoWindow.open(map, self.mapMarker);
   }
+
+  hideInfoWindow(){
+    this.mapMarker.setAnimation(null);
+    this.infoWindow.close();
+  }
+
+  showInfoWindow(){
+      // Build the basic info window content, if hasn't been done
+      if (!this.infoWindow.getContent()) {
+          // Initialize basic info window content and display it
+          this.infoWindow.setContent('Loading content...');
+          let content = '<h3>' + this.name + '</h3>';
+          content += '<p>Check-ins: ' + this.checkins + '</p>';
+          this.infoWindow.setContent(content);
+      }
+
+      // Show info window
+      this.mapMarker.setAnimation(google.maps.Animation.DROP);
+      // If using bounce, just stop the animation.
+      // setTimeout(function(){ marker.setAnimation(null); }, 750);
+
+      this.infoWindow.open(map, this.mapMarker);
+
+    };
+  
+
+
 }
 
 
@@ -122,8 +157,41 @@ class PlaceViewModel {
     this.filter = ko.observable('');
     this.isVisible = ko.observable(true);
 
+    this.hello = this.hello.bind(this);
+    // this.filter = this.filter.bind(this);
+
+    // Can't get this to work when I take it out of the constructor.. 
+    this.filterResults = ko.computed( () => {
+        let matches = [];
+        // Create a regular expression for performing a case-insensitive
+        // search using the current value of the filter observable
+        let re = new RegExp(this.filter(), 'i');
+
+        // Iterate over all place objects, searching for a matching name
+        this.placeList().forEach((place) => {
+            // If it's a match, save it to the list of matches and show its
+            // corresponding map marker
+            if (place.name.search(re) !== -1) {
+                matches.push(place);
+                place.mapMarker.setVisible(true);
+                this.hideWindows();
+                place.showInfoWindow();
+
+            // Otherwise, ensure the corresponding map marker is hidden
+            } else {
+                // Hide marker
+                place.mapMarker.setVisible(false);
+
+            }
+        });
+
+        return matches;
+    });
+
+
+
     this.sayBye = () => {
-        console.log("Howdy, I'm the parent");
+        console.log("Howdy, I'm the parent");        
     }
 
     // Use Filter Here - Knockout computed observable
@@ -140,8 +208,20 @@ class PlaceViewModel {
     });
   }
 
-  hello(){
-    console.log("Hola!");
+  hideWindows(){
+    console.log("hiding all Infowindows");
+    // Is there a more efficient way that continually iterating over this each time?
+    this.placeList().forEach((obj) => {
+      obj.hideInfoWindow();
+    })
+  }
+
+// hello = (place) => // doesn't work, which feature?
+// need to use bind above.
+  hello(place) {
+    console.log("Hola! ", place.name);
+    this.hideWindows();
+    place.showInfoWindow();
   }
 
 }
@@ -149,7 +229,7 @@ class PlaceViewModel {
 // ko.applyBindings(new PlaceListViewModel());
 var vm = new PlaceViewModel();
 ko.applyBindings(vm);
-// vm.hello();
+// vm.hideWindows();
 
 let map;
 

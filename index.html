@@ -23,10 +23,10 @@
 <body>
     <div class="control">
         <h1>Neighbourhood Map</h1>
-        <label for="select">Venue</label>
-        <input type="text" name="vselect">
+        <label for="vselect">Venue</label>
+        <input type="text" name="vselect" data-bind="textInput: filter">
         <ul data-bind="foreach: placeList">
-            <li data-bind="text: name, click: $.parent.sayBye">F1</li>
+            <li data-bind="text: name, click: $parent.hello">F1</li>
         </ul>
     </div>
     <div id="map"></div>
