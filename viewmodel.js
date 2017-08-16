@@ -53,35 +53,79 @@ function getfsdata(callback) {
     })
 }
 
-function PlaceModel(){
+/*
+Creates a Google Maps Marker object with data pulled in from
+PlaceListViewModel
+*/
+function PlaceModel(place){
+  let self = this;
+  self.name = place.name;
+  self.lat = place.lat;
+  self.lng = place.lng;
+  self.checkins = place.checkins;
+
+  // Create the map marker for this SubwayStation object
+  self.mapMarker = new google.maps.Marker({
+      position: {lat: self.lat, lng: self.lng},
+      map: map,
+      title: self.name
+  });
+
+  // Create the info window for this  object
+  self.infoWindow = new google.maps.InfoWindow();
+
+  self.mapMarker.setAnimation(google.maps.Animation.BOUNCE);
+
+self.infoWindow.open(map, self.mapMarker);
+
+  self.mapMarker.setAnimation(null);
+  self.infoWindow.close();
+
+
+  /*
+  Don't want all of them to open by default, just
+  when one is clicked. Therefore query and close any other peer 
+  PlaceModel objects
+  */
+  // self.infoWindow.open(map, self.mapMarker);
 
 }
 
 
 /*
-Uses Knockout.js to pull in a list of venues from Foursquare
-Assigns the result to self.place observable array.
-Then sets up individual PlaceModel which takes the place and embeds it
-within Google Maps Marker
+1. Uses Fetch to pull in a list of venues from Foursquare.
+2. Assigns the array result to self.place in Knockout observable array.
+3. Sets up individual PlaceModel
+4. Has methods to filter and show specific place(s)
 */
-
 function PlaceListViewModel() {
     let self = this;
         
+    // By default this will contain everything fetched from JSON
     self.place = ko.observableArray([]);
+
+    self.filter = ko.observable('');
+    self.isVisible = ko.observable(true);
+
+
 
     // Use Filter Here - Knockout computed observable
     // KeyUp binding equivalent is via Knockout
 
     getfsdata(function(result){
       console.log("result is, ",result);
+      // Here we set the push this FourSquare venue list to the observable array.
       self.place(result);
+      // Simultaneously, we instantiate a PlaceModel object from our PlaceListViewModel
+      // Each place will be able to set its own Google Map properties.
+      result.forEach((obj) => {
+        new PlaceModel(obj);
+      })
     });
     
 }
 
-ko.applyBindings(new PlaceListViewModel());
-
+// ko.applyBindings(new PlaceListViewModel());
 var vm = new PlaceListViewModel();
 ko.applyBindings(vm);
 
