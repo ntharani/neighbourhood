@@ -108,11 +108,7 @@ class PlaceModel{
       // setTimeout(function(){ marker.setAnimation(null); }, 750);
 
       this.infoWindow.open(map, this.mapMarker);
-
     };
-  
-
-
 }
 
 
@@ -130,7 +126,7 @@ class PlaceViewModel {
     this.hello = this.hello.bind(this);
     // this.filter = this.filter.bind(this);
 
-    // Can't get this to work when I take it out of the constructor.. 
+    // Can't get this to work when I take it out of the constructor? 
     this.filterResults = ko.computed( () => {
         let matches = [];
         // Create a regular expression for performing a case-insensitive

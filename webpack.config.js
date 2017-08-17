@@ -6,9 +6,10 @@ new webpack.ProvidePlugin({
 });
 
 module.exports = {
+  context: __dirname + '/src',
   entry: './index.js',
   output: {
-    // path: './',
+    path: __dirname + '/dist',
     filename: 'bundle.js'
   },
   module: {

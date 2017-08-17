@@ -1,8 +1,16 @@
 1. HTML Basic Page DONE
 2. Google Maps API Credentials DONE
 3. CSS Full Screen / Full Div Canvas DONE
-4. Knockout JS Logic - Filter View, Select
-5. Framework7.io
-6. 3rd Party - Foursquare API, Venues -->  based on LatLong, extract those DONE 
-7. submit Four Square results to Google Maps to be plotted.
+4. Knockout JS Logic - Filter View, Select DONE
 
+5. Framework7.io --> Used Bulma instead. But try in future. **
+
+6. 3rd Party - Foursquare API, Venues -->  based on LatLong, extract those DONE 
+7. submit Four Square results to Google Maps to be plotted. DONE
+
+Nice to have:
+
+* Cancel in form input button.
+* Move vlist (hidden on mobile) to sidebar so you can scroll it.
+* Mapbonuds logic to autoscale map for best View
+* Move filterResults logic outside of constructor

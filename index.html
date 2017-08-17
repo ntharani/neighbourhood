@@ -33,7 +33,7 @@
           /* bottom:0;  */
           opacity: 0.85;
       }
-      #venue-nav li:hover {
+      #vlist > li:hover {
         background: yellow;
       }
       input#filter {
@@ -55,6 +55,8 @@
         <ul id="vlist" class="is-hidden-mobile" data-bind="foreach: filterResults">
             <li data-bind="text: name, click: $parent.hello">F1</li>
         </ul>
+        <ul><li class="is-hidden-mobile"><strong>Powered by FourSquare</strong></li><ul>
+
     </div>
     <div class="column">
     <div id="map"></div>
@@ -62,6 +64,6 @@
     </div>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWAtCG4fzvlkJQpUGxeT-JndYmZCaKsvU&callback=initMap"
     async defer></script>    
-    <script src="bundle.js"></script>
+    <script src="dist/bundle.js"></script>
 </body>
 </html>
