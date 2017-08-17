@@ -50,6 +50,7 @@ function getfsdata(callback) {
       callback(ans2)
     }).catch(function(error) {
     console.log('request failed', error)
+    alert("API Request to FourSquare failed");
   })
 }
 
@@ -79,42 +80,11 @@ class PlaceModel{
       vm.hideWindows();
       this.mapMarker.setAnimation(google.maps.Animation.BOUNCE);
       setTimeout(() => { this.mapMarker.setAnimation(null); }, 1500);
-
+      map.panTo({lat: this.lat, lng: this.lng});
       this.infoWindow.open(map, this.mapMarker);
+
     })
 
-
-    // this.showInfoWindow = () => {
-    //     // Build the basic info window content, if hasn't been done
-    //     if (!this.infoWindow.getContent()) {
-    //         // Initialize basic info window content and display it
-    //         this.infoWindow.setContent('Loading content...');
-    //         let content = '<h3>' + this.name + '</h3>';
-    //         content += '<p>Check-ins: ' + this.checkins + '</p>';
-    //         this.infoWindow.setContent(content);
-    //     }
-
-    //     // Show info window
-    //     this.infoWindow.open(map, this.mapMarker);
-    // };
-
-    // this.showInfoWindow();
-
-
-    // this.mapMarker.setAnimation(google.maps.Animation.BOUNCE);
-
-    // this.infoWindow.open(map, this.mapMarker);
-
-    // this.mapMarker.setAnimation(null);
-    // this.infoWindow.close();
-
-
-    /*
-    Don't want all of them to open by default, just
-    when one is clicked. Therefore query and close any other peer 
-    PlaceModel objects
-    */
-    // self.infoWindow.open(map, self.mapMarker);
   }
 
   hideInfoWindow(){
@@ -184,7 +154,6 @@ class PlaceViewModel {
 
             }
         });
-
         return matches;
     });
 
@@ -253,3 +222,4 @@ window.initMap = function() {
 //     });
 //     console.log(map);
 // }
+
