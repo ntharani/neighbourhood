@@ -6,7 +6,7 @@
 *.DS_Store
 .AppleDouble
 .LSOverride
-.roadmap
+*.roadmap
 
 # Icon must end with two \r
 Icon

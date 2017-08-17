@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Neighbourhood Map</title>
-<style>
+    <style>
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
       #map {
@@ -39,9 +39,9 @@
       input#filter {
           margin-top: 25px;
       }
-</style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.1/css/bulma.min.css" integrity="sha256-CDVQJfU+jJGU/oyDzvnzuGXbv0rz+SyBsPQwyn7x/jQ=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js" integrity="sha256-owX7sroiO/O1a7h3a4X29A1g3QgqdNvijRQ7V5TH45M=" crossorigin="anonymous"></script>    
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.5.1/css/bulma.min.css" integrity="sha256-CDVQJfU+jJGU/oyDzvnzuGXbv0rz+SyBsPQwyn7x/jQ=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js" integrity="sha256-owX7sroiO/O1a7h3a4X29A1g3QgqdNvijRQ7V5TH45M=" crossorigin="anonymous"></script>    
 </head>
 <body>
     <div class="columns">
@@ -52,10 +52,10 @@
                 <input id="filter" type="text" class="input" type="text" placeholder="Type to Filter Venue" name="vselect" data-bind="textInput: filter">
             </div>
         </div>
-        <ul id="vlist" class="is-hidden-mobile" data-bind="foreach: filterResults">
+         <ul id="vlist" class="is-hidden-mobile" data-bind="foreach: filterResults">
             <li data-bind="text: name, click: $parent.hello">F1</li>
         </ul>
-        <ul><li class="is-hidden-mobile"><strong>Powered by FourSquare</strong></li><ul>
+        <ul><li class="is-hidden-mobile"><strong>Powered by FourSquare</strong></li><ul> 
 
     </div>
     <div class="column">
@@ -64,6 +64,6 @@
     </div>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWAtCG4fzvlkJQpUGxeT-JndYmZCaKsvU&callback=initMap"
     async defer></script>    
-    <script src="dist/bundle.js"></script>
+    <script src="bundle.js"></script>
 </body>
 </html>

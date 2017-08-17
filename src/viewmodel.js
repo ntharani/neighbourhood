@@ -93,21 +93,16 @@ class PlaceModel{
   }
 
   showInfoWindow(){
-      // Build the basic info window content, if hasn't been done
-      if (!this.infoWindow.getContent()) {
-          // Initialize basic info window content and display it
-          this.infoWindow.setContent('Loading content...');
-          let content = '<h3>' + this.name + '</h3>';
-          content += '<p>Check-ins: ' + this.checkins + '</p>';
-          this.infoWindow.setContent(content);
-      }
+    let content = '<h3>' + this.name + '</h3>';
+    content += '<p>Check-ins: ' + this.checkins + '</p>';
+    this.infoWindow.setContent(content);
 
-      // Show info window
-      this.mapMarker.setAnimation(google.maps.Animation.DROP);
-      // If using bounce, just stop the animation.
-      // setTimeout(function(){ marker.setAnimation(null); }, 750);
+    // Show info window
+    this.mapMarker.setAnimation(google.maps.Animation.DROP);
+    // If using bounce, just stop the animation.
+    // setTimeout(function(){ marker.setAnimation(null); }, 750);
 
-      this.infoWindow.open(map, this.mapMarker);
+    this.infoWindow.open(map, this.mapMarker);
     };
 }
 
@@ -121,10 +116,10 @@ class PlaceViewModel {
   constructor(){
     this.placeList = ko.observableArray([]);
     this.filter = ko.observable('');
-    this.isVisible = ko.observable(true);
 
     this.hello = this.hello.bind(this);
     // this.filter = this.filter.bind(this);
+    // this.filterResults = this.filterResults.bind(this);
 
     // Can't get this to work when I take it out of the constructor? 
     this.filterResults = ko.computed( () => {
@@ -152,8 +147,6 @@ class PlaceViewModel {
         });
         return matches;
     });
-
-
 
     this.sayBye = () => {
         console.log("Howdy, I'm the parent");        
@@ -207,7 +200,7 @@ window.initMap = function() {
         center: {lat: 49.2827, lng: -123.1207},
         zoom: 16
     });
-    console.log(map);
+    // console.log(map);
 }
 
 // This is only within functional scope. It is acceptable if WebPack isn't used.

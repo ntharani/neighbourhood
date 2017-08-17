@@ -1,3 +1,4 @@
+var path = require("path");
 const webpack = require('webpack');
 new webpack.ProvidePlugin({
   $: 'jquery',
@@ -6,10 +7,10 @@ new webpack.ProvidePlugin({
 });
 
 module.exports = {
-  context: __dirname + '/src',
+  context: path.resolve(__dirname, './src'),
   entry: './index.js',
   output: {
-    path: __dirname + '/dist',
+    path: path.resolve(__dirname, './dist'),
     filename: 'bundle.js'
   },
   module: {
@@ -37,7 +38,10 @@ module.exports = {
           ]
         }
     ]
-  }
+  },
+  devServer: {
+    contentBase: path.resolve(__dirname, './src'),  // New
+  },  
 };
 
 
