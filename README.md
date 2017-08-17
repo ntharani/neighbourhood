@@ -20,4 +20,4 @@
 
 ## To Run
 - DEV: `yarn dev` or `npm run dev` and navigate to `http://localhost:8081/`
-- PROD: `yarn watch`
+- PROD: `yarn prod` (This will minify and compress the output)
