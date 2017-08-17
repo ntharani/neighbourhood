@@ -1,5 +1,7 @@
-# Neigbourhood Map. (*)
+# Neighbourhood Map. (*)
 - (*) Please note the 'u'. I'm Canadian. Sorry. :)
+
+![Screenshot](readimg.png "Desktop View")
 
 ## Udacity Project #5 - Responsive JS Google Map & API Mashup
 - This shows various points of interest in and around Vancouver
@@ -17,5 +19,5 @@
 - `yarn install` or `npm install`
 
 ## To Run
-- DEV: `yarn dev` or `npm run dev`
+- DEV: `yarn dev` or `npm run dev` and navigate to `http://localhost:8081/`
 - PROD: `yarn watch`
