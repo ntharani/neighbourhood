@@ -184,11 +184,6 @@ class PlaceViewModel {
 
 }
 
-// ko.applyBindings(new PlaceListViewModel());
-var vm = new PlaceViewModel();
-ko.applyBindings(vm);
-// vm.hideWindows();
-
 let map;
 
 // initMap = function() vs. function initMap()
@@ -203,6 +198,10 @@ window.initMap = function() {
     // console.log(map);
 }
 
+window.mapError = () => {
+  alert("Trouble loading Google Maps. Please try again")
+};
+
 // This is only within functional scope. It is acceptable if WebPack isn't used.
 // function initMap() {
 //     map = new google.maps.Map(document.getElementById('map'), {
@@ -212,3 +211,7 @@ window.initMap = function() {
 //     console.log(map);
 // }
 
+// ko.applyBindings(new PlaceListViewModel());
+var vm = new PlaceViewModel();
+ko.applyBindings(vm);
+// vm.hideWindows();
