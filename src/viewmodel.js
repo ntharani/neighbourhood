@@ -66,7 +66,7 @@ class PlaceModel{
     this.lng = place.lng;
     this.checkins = place.checkins;
 
-    // Create the map marker for this SubwayStation object
+    // Create the map marker for this Place object
     this.mapMarker = new google.maps.Marker({
         position: {lat: this.lat, lng: this.lng},
         map: map,

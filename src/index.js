@@ -15,7 +15,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Get the target from the "data-target" attribute
         var target = $el.dataset.target;
+        // console.log(target);
         var $target = document.getElementById(target);
+        // console.log($target);
 
         // Toggle the class on both the "navbar-burger" and the "navbar-menu"
         $el.classList.toggle('is-active');
